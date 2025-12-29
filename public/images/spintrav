@@ -1,0 +1,1889 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>10-Day Family Itinerary: Spain (April 2026) — Interactive</title>
+  <meta name="description" content="Spain itinerary with hour-by-hour plan, maps, photos, veg restaurants, budget calculator, packing checklist, and print-to-PDF mode." />
+
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#101722;
+      --text:#e8eef7;
+      --muted:#a9b6c7;
+      --accent:#5dd6ff;
+      --accent2:#9cff6a;
+      --warn:#ffd36a;
+      --border:rgba(255,255,255,.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 20% 0%, rgba(93,214,255,.18), transparent 55%),
+                  radial-gradient(900px 700px at 80% 10%, rgba(156,255,106,.12), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{padding:28px 18px 10px;}
+    .wrap{max-width:var(--max); margin:0 auto;}
+    .hero{
+      background: linear-gradient(180deg, rgba(16,23,34,.85), rgba(16,23,34,.65));
+      border:1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow:hidden;
+    }
+    .hero-top{padding:22px 22px 14px; display:grid; gap:14px;}
+    .kicker{display:flex; gap:10px; flex-wrap:wrap; align-items:center; color:var(--muted); font-size:14px;}
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background: rgba(255,255,255,.03);}
+    h1{margin:6px 0 0; font-size:32px; letter-spacing:-.4px; line-height:1.1;}
+    .sub{margin:0; color:var(--muted); max-width: 92ch;}
+    .btnrow{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px; border-radius:12px;
+      border:1px solid var(--border); background: rgba(255,255,255,.03);
+      color: var(--text); font-size:14px; cursor:pointer;
+    }
+    .btn:hover{text-decoration:none; border-color: rgba(93,214,255,.3)}
+    .btn.primary{border-color: rgba(93,214,255,.35); background: rgba(93,214,255,.08)}
+    .btn.good{border-color: rgba(156,255,106,.35); background: rgba(156,255,106,.08)}
+    .btn.warn{border-color: rgba(255,211,106,.35); background: rgba(255,211,106,.08)}
+    nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,20,.72);
+      border-bottom:1px solid var(--border);
+    }
+    .navin{
+      max-width:var(--max); margin:0 auto;
+      display:flex; gap:10px; flex-wrap:wrap;
+      padding:10px 14px; align-items:center;
+    }
+    .navin a{
+      padding:8px 10px; border-radius: 10px;
+      border:1px solid transparent; color:#d8e6ff; font-size:14px;
+    }
+    .navin a:hover{border-color: var(--border); background: rgba(255,255,255,.03); text-decoration:none}
+
+    main{padding:18px 14px 60px}
+    section{margin-top:18px}
+    .panel{
+      background: rgba(16,23,34,.72);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .panel-inner{padding:14px}
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      margin: 6px 0 10px;
+    }
+    .section-title h2{margin:0; font-size:20px; letter-spacing:-.2px;}
+    .section-title p{margin:0; color:var(--muted); font-size:14px}
+
+    .table{width:100%; border-collapse: collapse; font-size:14px}
+    .table th, .table td{border-bottom:1px solid var(--border); padding:10px 10px; vertical-align:top;}
+    .table th{color:#dbe7ff; text-align:left; font-weight:600}
+    .table td{color:#e7eefb}
+    .muted{color:var(--muted)}
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:4px 8px; border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      font-size:12px; color:#d7e3ff;
+      margin-right:6px; margin-top:4px;
+    }
+    .two{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
+    @media (max-width: 900px){.two{grid-template-columns:1fr}}
+    .three{display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px;}
+    @media (max-width: 980px){.three{grid-template-columns:1fr}}
+    .card{
+      background: rgba(255,255,255,.03);
+      border:1px solid var(--border);
+      border-radius: 14px;
+      padding:12px;
+    }
+    .callout{
+      border-left: 4px solid var(--accent2);
+      padding:12px 12px;
+      background: rgba(156,255,106,.06);
+      border-radius: 12px;
+      border:1px solid rgba(156,255,106,.18);
+      color:#eafff0;
+    }
+    .callout.warn{
+      border-left-color: var(--warn);
+      background: rgba(255,211,106,.06);
+      border-color: rgba(255,211,106,.18);
+      color:#fff4df;
+    }
+    details{
+      background: rgba(255,255,255,.02);
+      border:1px solid var(--border);
+      border-radius: 14px;
+      padding:10px 12px;
+    }
+    details + details{margin-top:10px}
+    summary{cursor:pointer; list-style:none; display:flex; align-items:center; justify-content:space-between; gap:10px;}
+    summary::-webkit-details-marker{display:none}
+    .sum-left{display:flex; flex-direction:column; gap:2px;}
+    .sum-left b{font-size:15px}
+    .sum-left small{color:var(--muted)}
+    .sum-right{display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end; color: var(--muted); font-size:12px;}
+
+    .timeline{
+      margin-top:12px;
+      border-top:1px dashed var(--border);
+      padding-top:12px;
+      display:grid;
+      gap:10px;
+    }
+    .slot{
+      display:grid;
+      grid-template-columns: 125px 1fr;
+      gap:10px;
+      padding:10px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.16);
+      border-radius: 14px;
+    }
+    @media (max-width: 700px){ .slot{grid-template-columns:1fr} }
+    .time{font-weight:800; color:#dbe7ff;}
+    .slot p{margin:0}
+    .slot .meta{margin-top:6px; color:var(--muted); font-size:13px;}
+
+    .field{display:grid; grid-template-columns: 1fr 1fr; gap:10px; align-items:end; margin-top:10px;}
+    @media (max-width: 900px){.field{grid-template-columns:1fr}}
+    label{display:block; font-size:13px; color:#dbe7ff; margin-bottom:6px;}
+    input[type="number"], input[type="text"], select{
+      width:100%;
+      padding:10px 10px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      outline:none;
+    }
+    input[type="checkbox"]{transform: scale(1.1); margin-right:8px}
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .right{margin-left:auto}
+    .totals{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 900px){.totals{grid-template-columns:1fr 1fr}}
+    @media (max-width: 520px){.totals{grid-template-columns:1fr}}
+    .kpi{
+      padding:12px;
+      border-radius: 14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+    }
+    .kpi .v{font-size:18px; font-weight:900}
+    .kpi .l{color:var(--muted); font-size:12px}
+
+    .list{display:grid; gap:8px; margin-top:10px;}
+    .checkitem{
+      display:flex; align-items:flex-start; gap:10px;
+      padding:10px;
+      border-radius: 14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.02);
+    }
+    .checkitem b{display:block}
+    .mini{font-size:12px; color:var(--muted)}
+    .note{margin-top:10px; color:var(--muted); font-size:13px}
+    .footer{color:var(--muted); font-size:13px; margin-top:18px;}
+
+    .media{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:10px;
+      margin-top:10px;
+      align-items:start;
+    }
+    @media (max-width: 980px){.media{grid-template-columns:1fr}}
+    .photo{
+      width:100%;
+      border-radius: 14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    .photo img{width:100%; height:auto; display:block}
+    .map{
+      width:100%;
+      height:240px;
+      border-radius: 14px;
+      border:1px solid var(--border);
+      overflow:hidden;
+      background: rgba(0,0,0,.18);
+    }
+    .map iframe{width:100%; height:100%; border:0}
+
+    /* PRINT-FRIENDLY MODE */
+    body.print-mode{
+      background:#fff;
+      color:#000;
+    }
+    body.print-mode a{color:#000; text-decoration:underline}
+    body.print-mode nav,
+    body.print-mode .btnrow,
+    body.print-mode .note,
+    body.print-mode .footer,
+    body.print-mode .mini{
+      display:none !important;
+    }
+    body.print-mode .hero,
+    body.print-mode .panel{
+      box-shadow:none;
+      background:#fff;
+      border:1px solid #ddd;
+    }
+    body.print-mode .card,
+    body.print-mode details,
+    body.print-mode .slot,
+    body.print-mode .kpi,
+    body.print-mode .checkitem{
+      background:#fff;
+      border:1px solid #e5e5e5;
+      color:#000;
+    }
+    body.print-mode .muted{color:#333}
+    body.print-mode .tag{border-color:#ddd; color:#000; background:#fff}
+    body.print-mode .table th, body.print-mode .table td{border-bottom:1px solid #eee; color:#000}
+    body.print-mode .callout{border:1px solid #ddd; background:#fff; color:#000}
+    body.print-mode .callout.warn{border:1px solid #ddd; background:#fff}
+    body.print-mode .map{display:none !important;} /* maps often print badly */
+  </style>
+</head>
+
+<body>
+  <header class="wrap">
+    <div class="hero">
+      <div class="hero-top">
+        <div class="kicker">
+          <span class="pill">📅 April 2026</span>
+          <span class="pill">👨‍👩‍👧‍👦 2 Adults + 2 Kids (8 & 14)</span>
+          <span class="pill">⚽ Football: Barça + Real Madrid</span>
+          <span class="pill">🥗 Vegetarian-friendly</span>
+          <span class="pill">🚶 Walk-first</span>
+          <span class="pill">🧮 Budget + Packing + PDF</span>
+        </div>
+
+        <h1>Spain Spring 2026 — 10 Days, Hour-by-Hour (Family + Veg + Football)</h1>
+        <p class="sub">
+          Route: Barcelona (3N) → Madrid (2N) → Granada (1N) → Seville (3N). Built for walking, culture, gardens, museums, kid-friendly pacing, and vegetarian meals.
+          Includes embedded maps + photos of key monuments, plus a restaurant guide per city with map links.
+        </p>
+
+        <div class="btnrow">
+          <a class="btn" href="#highlights">✨ Highlights</a>
+          <a class="btn" href="#hotels">🏨 Hotels</a>
+          <a class="btn" href="#restaurants">🥗 Restaurants</a>
+          <a class="btn" href="#budget">🧮 Budget Calculator</a>
+          <a class="btn" href="#packing">🧳 Packing</a>
+          <a class="btn" href="#trains">🚄 Trains</a>
+          <a class="btn primary" href="#itinerary">🗓️ Full Itinerary</a>
+          <button class="btn warn right" id="btnPrint">🖨️ Print / Save to PDF</button>
+        </div>
+
+        <div class="callout warn">
+          <b>One-click PDF:</b> Click <b>Print / Save to PDF</b> → choose <b>Destination: Save as PDF</b>.
+          Page switches to a clean print layout automatically.
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="navin">
+      <a href="#highlights">Highlights</a>
+      <a href="#weather">Weather</a>
+      <a href="#hotels">Hotels</a>
+      <a href="#restaurants">Restaurants</a>
+      <a href="#budget">Budget</a>
+      <a href="#packing">Packing</a>
+      <a href="#trains">Trains</a>
+      <a href="#itinerary">Itinerary</a>
+      <a href="#tips">Tips</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- HIGHLIGHTS -->
+    <section id="highlights" class="panel">
+      <div class="panel-inner">
+        <div class="section-title">
+          <h2>Daywise Highlights</h2>
+          <p>Quick scan of the big moments (and kid hooks).</p>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>City</th>
+              <th>Key highlights</th>
+              <th>Kid / football hooks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><b>1</b></td><td>Barcelona</td><td>Gothic Quarter • Las Ramblas • Ciutadella Park • Magic Fountain</td><td>Street performers + big park + gelato</td></tr>
+            <tr><td><b>2</b></td><td>Barcelona</td><td>Sagrada Família • Park Güell • Passeig de Gràcia (Gaudí houses)</td><td>Mosaic dragon + tower “wow factor”</td></tr>
+            <tr><td><b>3</b></td><td>Barcelona</td><td>Barça museum/tour • Outlet shopping • Barceloneta sunset</td><td>⚽ Barça store + beach time</td></tr>
+            <tr><td><b>4</b></td><td>Madrid</td><td>High-speed train • Sol/Plaza Mayor • Royal Palace • Temple of Debod</td><td>Big squares + sunset “temple” views</td></tr>
+            <tr><td><b>5</b></td><td>Madrid</td><td>Retiro Park • Prado or Reina Sofía • Gran Vía</td><td>⚽ Bernabéu Tour</td></tr>
+            <tr><td><b>6</b></td><td>Granada</td><td>Train • Alhambra + Generalife • Albaicín sunset</td><td>Fortress towers + “secret gardens”</td></tr>
+            <tr><td><b>7</b></td><td>Seville</td><td>Train • Santa Cruz • Plaza de España • River walk</td><td>Rowboats + space to run</td></tr>
+            <tr><td><b>8</b></td><td>Seville</td><td>Real Alcázar • Cathedral/Giralda • Murillo Gardens</td><td>Gardens + tower ramps (no endless stairs)</td></tr>
+            <tr><td><b>9</b></td><td>Seville</td><td>Triana Market • Las Setas • Shopping streets • Optional flamenco</td><td>Market snacks + flamenco (short show)</td></tr>
+            <tr><td><b>10</b></td><td>Departure</td><td>Easy morning • airport transfer (or AVE to Madrid if needed)</td><td>Last-minute souvenirs</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- WEATHER -->
+    <section id="weather" class="panel" style="margin-top:16px;">
+      <div class="panel-inner">
+        <div class="section-title">
+          <h2>April Weather Snapshot (used to generate packing checklist)</h2>
+          <p>Mild spring; warmer south; cooler nights inland.</p>
+        </div>
+
+        <div class="two">
+          <div class="card" data-city="Barcelona">
+            <b>Barcelona</b>
+            <div class="muted">Mild; sea breeze; occasional short showers.</div>
+            <div style="margin-top:8px;">
+              <span class="tag" data-high="19">High ~17–19°C</span>
+              <span class="tag" data-low="10">Low ~10–12°C</span>
+              <span class="tag" data-rain="light">Light rain possible</span>
+              <span class="tag" data-wind="breeze">Sea breeze</span>
+            </div>
+          </div>
+
+          <div class="card" data-city="Madrid">
+            <b>Madrid</b>
+            <div class="muted">Cool mornings/evenings; warm in sun.</div>
+            <div style="margin-top:8px;">
+              <span class="tag" data-high="20">High ~18–20°C</span>
+              <span class="tag" data-low="7">Low ~7–9°C</span>
+              <span class="tag" data-rain="light">Light rain possible</span>
+              <span class="tag" data-wind="light">Light wind</span>
+            </div>
+          </div>
+
+          <div class="card" data-city="Granada">
+            <b>Granada</b>
+            <div class="muted">Warm days; noticeably cooler nights (elevation).</div>
+            <div style="margin-top:8px;">
+              <span class="tag" data-high="23">High ~20–23°C</span>
+              <span class="tag" data-low="7">Low ~6–9°C</span>
+              <span class="tag" data-rain="low">Low rain</span>
+              <span class="tag" data-wind="light">Light wind</span>
+            </div>
+          </div>
+
+          <div class="card" data-city="Seville">
+            <b>Seville</b>
+            <div class="muted">Warmest; sunny; afternoons can feel hot.</div>
+            <div style="margin-top:8px;">
+              <span class="tag" data-high="26">High ~23–26°C</span>
+              <span class="tag" data-low="13">Low ~12–14°C</span>
+              <span class="tag" data-rain="low">Low rain</span>
+              <span class="tag" data-wind="light">Light wind</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="note">These are typical April averages; update to date-specific forecasts ~7–10 days before travel.</p>
+      </div>
+    </section>
+
+    <!-- HOTELS -->
+    <section id="hotels" class="panel" style="margin-top:16px;">
+      <div class="panel-inner">
+        <div class="section-title">
+          <h2>Suggested Midrange Hotels (good location)</h2>
+          <p>Estimate: family total per night (often 1 family room or 2 rooms). Prices vary by dates/events.</p>
+        </div>
+
+        <div class="two">
+          <div class="card">
+            <b>Barcelona (3 nights) — near Plaça de Catalunya / Eixample</b>
+            <div class="muted">Walkable base for Gothic Quarter + Gaudí + metro links.</div>
+            <div style="margin-top:8px;">
+              <div class="tag">€140–€220/night (family total)</div>
+              <div class="tag"><a target="_blank" rel="noopener" href="https://www.booking.com/hotel/es/h10-urquinaona-plaza.html">H10 Urquinaona Plaza (Booking)</a></div>
+              <div class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=H10+Urquinaona+Plaza+Barcelona&output=embed">Map</a></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <b>Madrid (2 nights) — Chueca / Gran Vía zone</b>
+            <div class="muted">Central for Sol, Gran Vía, museums, and metro to Bernabéu.</div>
+            <div style="margin-top:8px;">
+              <div class="tag">€130–€210/night (family total)</div>
+              <div class="tag"><a target="_blank" rel="noopener" href="https://www.booking.com/hotel/es/room-mate-oscar.html">Room Mate Oscar (Booking)</a></div>
+              <div class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Room+Mate+Oscar+Madrid&output=embed">Map</a></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <b>Granada (1 night) — Cathedral / Plaza Nueva area</b>
+            <div class="muted">Short walks to Albaicín viewpoints + bus/taxi to Alhambra.</div>
+            <div style="margin-top:8px;">
+              <div class="tag">€90–€160/night (family total)</div>
+              <div class="tag"><a target="_blank" rel="noopener" href="https://www.booking.com/hotel/es/anacapri.html">Hotel Anacapri (Booking)</a></div>
+              <div class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Hotel+Anacapri+Granada&output=embed">Map</a></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <b>Seville (3 nights) — Santa Cruz / historic center</b>
+            <div class="muted">Best walking city; you’ll live outdoors here.</div>
+            <div style="margin-top:8px;">
+              <div class="tag">€140–€240/night (family total)</div>
+              <div class="tag"><a target="_blank" rel="noopener" href="https://www.booking.com/hotel/es/hotel-las-casas-de-la-juderia.html">Las Casas de la Judería (Booking)</a></div>
+              <div class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Hotel+Las+Casas+de+la+Juder%C3%ADa+Seville&output=embed">Map</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout warn" style="margin-top:12px;">
+          <b>Booking strategy:</b> April is popular (spring holidays). Lock refundable rates early, then re-check prices 45–60 days out.
+        </div>
+      </div>
+    </section>
+
+    <!-- RESTAURANTS -->
+    <section id="restaurants" class="panel" style="margin-top:16px;">
+      <div class="panel-inner">
+        <div class="section-title">
+          <h2>Vegetarian Restaurant Guide (with prices, links, photos, maps)</h2>
+          <p>Prices are typical “per person” for a main + drink (unless noted). Always confirm menus for kids / allergies.</p>
+        </div>
+
+        <div class="callout">
+          <b>Quick rule:</b> Lunch menus in Spain can be better value than dinner. If you want a calmer meal with kids—go earlier.
+        </div>
+
+        <!-- Barcelona -->
+        <details open>
+          <summary>
+            <div class="sum-left">
+              <b>Barcelona — Vegetarian-friendly picks</b>
+              <small>Central, walkable, family-friendly vibes.</small>
+            </div>
+            <div class="sum-right">
+              <span class="tag">€15–€30 pp</span><span class="tag">Plant-forward</span>
+            </div>
+          </summary>
+
+          <div class="three" style="margin-top:12px;">
+            <div class="card">
+              <b>Teresa Carles</b>
+              <div class="muted">Classic Barcelona vegetarian institution; great for families.</div>
+              <div style="margin-top:8px;">
+                <span class="tag">€18–€28 pp</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.teresacarles.com/tc/eng">Website</a></span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Teresa+Carles+Barcelona&output=embed">Map</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <!-- Representative photo (city/food). Restaurant sites often block hotlinking. -->
+                  <img alt="Vegetarian Mediterranean plates (representative)" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Vegetarian_platter.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Teresa+Carles+Barcelona&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <b>Flax & Kale</b>
+              <div class="muted">Trendy, mostly plant-based; great brunch option.</div>
+              <div style="margin-top:8px;">
+                <span class="tag">€18–€30 pp</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://flaxandkale.com/">Website</a></span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Flax+%26+Kale+Barcelona&output=embed">Map</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <img alt="Salad bowl (representative)" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Salad_platter.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Flax+%26+Kale+Barcelona&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <b>Rasoterra (veg-friendly)</b>
+              <div class="muted">Creative small plates; good for a “nice dinner” night.</div>
+              <div style="margin-top:8px;">
+                <span class="tag">€22–€35 pp</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/search?q=Rasoterra+Barcelona+restaurant">Details</a></span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Rasoterra+Barcelona&output=embed">Map</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <img alt="Tapas plates (representative)" src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Tapas_platter.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Rasoterra+Barcelona&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Madrid -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Madrid — Vegetarian-friendly picks</b>
+              <small>Great for post-museum lunch + football day dinner.</small>
+            </div>
+            <div class="sum-right">
+              <span class="tag">€15–€30 pp</span><span class="tag">Central</span>
+            </div>
+          </summary>
+
+          <div class="three" style="margin-top:12px;">
+            <div class="card">
+              <b>Yerbabuena</b>
+              <div class="muted">Vegetarian/vegan; relaxed; reliable.</div>
+              <div style="margin-top:8px;">
+                <span class="tag">€16–€26 pp</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://restaurante-yerbabuena.eatbu.com/?lang=en">Website</a></span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Yerbabuena+restaurante+Madrid&output=embed">Map</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <!-- Hotlink-friendly image captured from their published gallery source -->
+                  <img alt="Yerbabuena restaurant interior" src="https://cdn.website.dish.co/media/d8/96/7642269/RESTAURANTE-YERBABUENA-image-18-02-24-08-48-8-heic.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Yerbabuena+restaurante+Madrid&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <b>Superchulo</b>
+              <div class="muted">Colorful “rainbow food”; includes veg options (check menu labels).</div>
+              <div style="margin-top:8px;">
+                <span class="tag">€16–€28 pp</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://superchulorestaurante.com/">Website</a></span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Superchulo+Madrid&output=embed">Map</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <img alt="Vegetarian brunch plate (representative)" src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Avocado_toast.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Superchulo+Madrid&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <b>Madrid vegetarian list (official tourism)</b>
+              <div class="muted">If you want backups nearby, use this curated city list.</div>
+              <div style="margin-top:8px;">
+                <span class="tag">Many options</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.esmadrid.com/en/vegetarian-restaurants">Tourism Madrid list</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <img alt="Madrid city street (representative)" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Gran_V%C3%ADa%2C_Madrid.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Gran+V%C3%ADa+Madrid&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Granada -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Granada — Vegetarian-friendly picks</b>
+              <small>Perfect after Alhambra: hearty, warm, and calm.</small>
+            </div>
+            <div class="sum-right">
+              <span class="tag">€12–€25 pp</span><span class="tag">Vegan-friendly</span>
+            </div>
+          </summary>
+
+          <div class="three" style="margin-top:12px;">
+            <div class="card">
+              <b>Hicuri Art Vegan</b>
+              <div class="muted">Vegan-focused; juices/smoothies + solid mains.</div>
+              <div style="margin-top:8px;">
+                <span class="tag">€14–€24 pp</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.restaurantehicuriartvegan.com/english/">Website</a></span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Hicuri+Art+Vegan+Granada&output=embed">Map</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <img alt="Vegan bowl (representative)" src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Buddha_bowl.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Hicuri+Art+Vegan+Granada&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <b>Paprika (vegan-friendly)</b>
+              <div class="muted">Popular; great vibe; confirm current menu and hours.</div>
+              <div style="margin-top:8px;">
+                <span class="tag">€14–€26 pp</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/search?q=Restaurante+Paprika+Granada+vegan">Details</a></span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Restaurante+Paprika+Granada&output=embed">Map</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <img alt="Fusion vegan plate (representative)" src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Vegan_food_platter.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Restaurante+Paprika+Granada&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <b>Fast backup: falafel near Calle Elvira</b>
+              <div class="muted">Good when kids are starving and you need “food now”.</div>
+              <div style="margin-top:8px;">
+                <span class="tag">€8–€15 pp</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/search?q=falafel+Calle+Elvira+Granada">Search nearby</a></span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Calle+Elvira+Granada&output=embed">Map</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <img alt="Falafel (representative)" src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Falafel_with_pita.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Calle+Elvira+Granada&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Seville -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Seville — Vegetarian-friendly picks</b>
+              <small>Old town; easy to pair with sightseeing loops.</small>
+            </div>
+            <div class="sum-right">
+              <span class="tag">€12–€28 pp</span><span class="tag">Tapas + vegan</span>
+            </div>
+          </summary>
+
+          <div class="three" style="margin-top:12px;">
+            <div class="card">
+              <b>Habanita</b>
+              <div class="muted">Vegetarian + Mediterranean + Caribbean; central and cozy.</div>
+              <div style="margin-top:8px;">
+                <span class="tag">€15–€25 pp</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://habanita.es/">Website</a></span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Habanita+Seville&output=embed">Map</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <img alt="Vegetarian tapas (representative)" src="https://upload.wikimedia.org/wikipedia/commons/1/10/Spanish_tapas.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Habanita+Seville&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <b>Veganitessen</b>
+              <div class="muted">Vegan bar & bakery; great for brunch + desserts.</div>
+              <div style="margin-top:8px;">
+                <span class="tag">€12–€22 pp</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://veganitessen.es/">Website</a></span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Veganitessen+Seville&output=embed">Map</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <img alt="Vegan pastry (representative)" src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Vegan_cupcake.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Veganitessen+Seville&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <b>Triana Market veggie tapas crawl</b>
+              <div class="muted">Pick-and-choose plates; easiest with mixed appetites.</div>
+              <div style="margin-top:8px;">
+                <span class="tag">€10–€25 pp</span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/search?q=Mercado+de+Triana+vegetarian+options">Search vendors</a></span>
+                <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Mercado+de+Triana+Seville&output=embed">Map</a></span>
+              </div>
+              <div class="media">
+                <div class="photo">
+                  <img alt="Market stalls (representative)" src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Market_stalls.jpg">
+                </div>
+                <div class="map">
+                  <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Mercado+de+Triana+Seville&output=embed"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- BUDGET CALCULATOR -->
+    <section id="budget" class="panel" style="margin-top:16px;">
+      <div class="panel-inner">
+        <div class="section-title">
+          <h2>Interactive Budget Calculator</h2>
+          <p>Adjust assumptions → totals update instantly.</p>
+        </div>
+
+        <div class="callout">
+          <b>Use this:</b> Fill hotel rate, meals, local transport; toggle trains & tickets.
+          Assumes <b>10 days / 9 nights</b> and <b>4 travelers</b>.
+        </div>
+
+        <div class="two" style="margin-top:12px;">
+          <div class="card">
+            <b>Inputs</b>
+
+            <div class="field">
+              <div>
+                <label for="currency">Currency</label>
+                <select id="currency">
+                  <option value="EUR" selected>EUR (€)</option>
+                  <option value="INR">INR (₹) — approx conversion</option>
+                </select>
+                <div class="mini">INR conversion uses an editable rate below.</div>
+              </div>
+
+              <div>
+                <label for="fx">FX rate (₹ per €)</label>
+                <input id="fx" type="number" min="1" step="0.1" value="90" />
+              </div>
+            </div>
+
+            <div class="field">
+              <div>
+                <label for="nights">Nights</label>
+                <input id="nights" type="number" min="1" step="1" value="9" />
+              </div>
+              <div>
+                <label for="hotelPerNight">Hotel cost per night (total for family)</label>
+                <input id="hotelPerNight" type="number" min="0" step="1" value="180" />
+                <div class="mini">If booking 2 rooms, enter combined nightly total.</div>
+              </div>
+            </div>
+
+            <div class="field">
+              <div>
+                <label for="mealsPerDay">Meals spend per day (family total)</label>
+                <input id="mealsPerDay" type="number" min="0" step="1" value="100" />
+              </div>
+              <div>
+                <label for="localTransportPerDay">Local transport per day (family)</label>
+                <input id="localTransportPerDay" type="number" min="0" step="1" value="20" />
+              </div>
+            </div>
+
+            <div class="field">
+              <div>
+                <label>Include attractions & tours (estimates)</label>
+                <div class="row">
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="ticket" data-name="Sagrada Família (family)" data-cost="92" checked />
+                    Sagrada Família (~€92)
+                  </label>
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="ticket" data-name="Park Güell (family)" data-cost="40" checked />
+                    Park Güell (~€40)
+                  </label>
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="ticket" data-name="Casa Batlló (family)" data-cost="120" />
+                    Casa Batlló (~€120)
+                  </label>
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="ticket" data-name="Barça museum/tour (family)" data-cost="100" checked />
+                    Barça (~€100)
+                  </label>
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="ticket" data-name="Bernabéu Tour (family)" data-cost="86" checked />
+                    Bernabéu (~€86)
+                  </label>
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="ticket" data-name="Alhambra (family)" data-cost="90" checked />
+                    Alhambra (~€90)
+                  </label>
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="ticket" data-name="Real Alcázar (family)" data-cost="26" checked />
+                    Alcázar (~€26)
+                  </label>
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="ticket" data-name="Flamenco show (family)" data-cost="60" />
+                    Flamenco (~€60)
+                  </label>
+                </div>
+                <div class="mini">Replace with your actual ticket totals if needed.</div>
+              </div>
+
+              <div>
+                <label for="shoppingBudget">Shopping budget (total trip)</label>
+                <input id="shoppingBudget" type="number" min="0" step="1" value="350" />
+              </div>
+            </div>
+
+            <div class="field">
+              <div>
+                <label>Intercity trains (toggle)</label>
+                <div class="row">
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="train" data-name="Barcelona → Madrid (family)" data-cost="160" checked />
+                    BCN→MAD (~€160)
+                  </label>
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="train" data-name="Madrid → Granada (family)" data-cost="160" checked />
+                    MAD→GRX (~€160)
+                  </label>
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="train" data-name="Granada → Seville (family)" data-cost="120" checked />
+                    GRX→SVQ (~€120)
+                  </label>
+                  <label class="row" style="margin:0;">
+                    <input type="checkbox" class="train" data-name="Seville → Madrid (family) optional" data-cost="160" />
+                    SVQ→MAD (~€160)
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label for="miscBuffer">Misc buffer (tips, snacks, surprises)</label>
+                <input id="miscBuffer" type="number" min="0" step="1" value="250" />
+              </div>
+            </div>
+
+            <div class="row" style="margin-top:10px;">
+              <button class="btn good" id="btnResetBudget">↩️ Reset defaults</button>
+              <button class="btn" id="btnCopyBudget">📋 Copy summary</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <b>Totals (auto-calculated)</b>
+
+            <div class="totals" id="totals">
+              <div class="kpi">
+                <div class="v" id="tHotel">—</div>
+                <div class="l">Hotels (nights × rate)</div>
+              </div>
+              <div class="kpi">
+                <div class="v" id="tDaily">—</div>
+                <div class="l">Meals + local transport</div>
+              </div>
+              <div class="kpi">
+                <div class="v" id="tMoves">—</div>
+                <div class="l">Intercity trains</div>
+              </div>
+              <div class="kpi">
+                <div class="v" id="tActivities">—</div>
+                <div class="l">Attractions & tours</div>
+              </div>
+              <div class="kpi">
+                <div class="v" id="tShopping">—</div>
+                <div class="l">Shopping</div>
+              </div>
+              <div class="kpi">
+                <div class="v" id="tBuffer">—</div>
+                <div class="l">Misc buffer</div>
+              </div>
+              <div class="kpi" style="grid-column: span 2;">
+                <div class="v" id="tGrand" style="font-size:22px;">—</div>
+                <div class="l">Grand Total (trip)</div>
+              </div>
+            </div>
+
+            <div class="callout warn" style="margin-top:12px;">
+              <b>Blunt truth:</b> if you try to do “nice dinners” every night + high-category hotels, budget will jump fast.
+              Use lunch menus + early bookings to keep it sane.
+            </div>
+
+            <div class="note" id="budgetBreakdown" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PACKING -->
+    <section id="packing" class="panel" style="margin-top:16px;">
+      <div class="panel-inner">
+        <div class="section-title">
+          <h2>Packing Checklist (generated from weather + walking + kid logic)</h2>
+          <p>Generate → check off → copy → done.</p>
+        </div>
+
+        <div class="row">
+          <button class="btn primary" id="btnGeneratePacking">🧠 Generate packing checklist</button>
+          <button class="btn" id="btnCheckAll">✅ Check all</button>
+          <button class="btn" id="btnUncheckAll">🧼 Uncheck all</button>
+          <button class="btn" id="btnCopyPacking">📋 Copy checklist</button>
+        </div>
+
+        <div class="callout" style="margin-top:12px;">
+          <b>Why layers?</b> Madrid/Granada evenings can be chilly, Seville afternoons can feel summery, and Barcelona likes surprise breezes.
+        </div>
+
+        <div id="packingList" class="list" style="margin-top:12px;">
+          <div class="muted">Click “Generate packing checklist”.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAINS -->
+    <section id="trains" class="panel" style="margin-top:16px;">
+      <div class="panel-inner">
+        <div class="section-title">
+          <h2>Train Plan + Costs (family of 4, estimate)</h2>
+          <p>Best: book early for cheaper seats. Keep snacks for kids on-board.</p>
+        </div>
+
+        <div class="callout">
+          <b>Booking:</b> <a href="https://www.renfe.com/es/en" target="_blank" rel="noopener">renfe.com</a>
+        </div>
+
+        <table class="table" style="margin-top:10px;">
+          <thead>
+            <tr>
+              <th>Route</th>
+              <th>Duration</th>
+              <th>Price range (family)</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><b>Barcelona → Madrid</b></td><td>~2h 30m</td><td>~€120–€260</td><td>High-speed AVE/low-cost variants; choose earlier train for an easy afternoon in Madrid.</td></tr>
+            <tr><td><b>Madrid → Granada</b></td><td>~3h 15m</td><td>~€120–€240</td><td>Try to arrive early afternoon to keep Alhambra day relaxed.</td></tr>
+            <tr><td><b>Granada → Seville</b></td><td>~2h 45m</td><td>~€90–€200</td><td>Direct trains vary—book as soon as schedules open.</td></tr>
+            <tr><td><b>Seville → Madrid</b> (optional)</td><td>~2h 40m</td><td>~€120–€260</td><td>If you fly out of Madrid instead of Seville.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ITINERARY -->
+    <section id="itinerary" class="panel" style="margin-top:16px;">
+      <div class="panel-inner">
+        <div class="section-title">
+          <h2>Full Day-by-Day, Hour-by-Hour Itinerary (with maps + monument photos)</h2>
+          <p>Travel times shown are typical (walking/metro). Adjust on the day based on energy and queues.</p>
+        </div>
+
+        <div class="callout warn">
+          <b>Ticket reality:</b> For Sagrada Família, Park Güell, Alhambra, and Alcázar: book timed entries well in advance.
+          Your future self will thank you loudly.
+        </div>
+
+        <!-- DAY 1 -->
+        <details open>
+          <summary>
+            <div class="sum-left">
+              <b>Day 1 — Barcelona: Arrival + Gothic Quarter Loop</b>
+              <small>Easy first day: gentle walking, parks, and a light landmark night.</small>
+            </div>
+            <div class="sum-right"><span class="tag">🚶 10–14k steps</span><span class="tag">🧒 Easy</span></div>
+          </summary>
+
+          <div class="media">
+            <div class="photo">
+              <img alt="Barcelona Gothic Quarter" src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Barri_G%C3%B2tic%2C_Barcelona.jpg">
+            </div>
+            <div class="map">
+              <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=Gothic+Quarter+Barcelona&output=embed"></iframe>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="slot">
+              <div class="time">09:00–11:30</div>
+              <div>
+                <p><b>Arrive + transfer + check-in</b></p>
+                <div class="meta">Airport → central Barcelona: ~30–45 min (taxi/train).</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">12:00–13:30</div>
+              <div>
+                <p><b>Lunch (veg)</b> near Plaça de Catalunya</p>
+                <div class="meta">Walk to restaurant: ~10–15 min from most central hotels.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">14:00–16:30</div>
+              <div>
+                <p><b>Gothic Quarter stroll</b>: Cathedral exterior → Plaça del Rei → tiny lanes</p>
+                <div class="meta">Walking between spots: 5–12 min each.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">16:45–18:15</div>
+              <div>
+                <p><b>Ciutadella Park</b> (play time + boats/greenery)</p>
+                <div class="meta">Gothic Quarter → park: ~15–20 min walk.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">19:30–21:00</div>
+              <div>
+                <p><b>Magic Fountain</b> / Montjuïc area (if operating) + light dinner nearby</p>
+                <div class="meta">Metro/taxi from center: ~15–25 min. Check seasonal show schedules.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- DAY 2 -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Day 2 — Barcelona: Gaudí Day (Sagrada + Park Güell + Passeig de Gràcia)</b>
+              <small>Big-ticket day. Keep it structured so kids don’t melt down.</small>
+            </div>
+            <div class="sum-right"><span class="tag">🏛️ Icons</span><span class="tag">🚇 Metro</span></div>
+          </summary>
+
+          <div class="two" style="margin-top:12px;">
+            <div class="card">
+              <b>Photo: Sagrada Família</b>
+              <div class="photo" style="margin-top:10px;">
+                <img alt="Sagrada Família" src="https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada%20Fam%C3%ADlia%2C%20Barcelona.jpg">
+              </div>
+            </div>
+            <div class="card">
+              <b>Photo: Park Güell</b>
+              <div class="photo" style="margin-top:10px;">
+                <img alt="Park Güell" src="https://commons.wikimedia.org/wiki/Special:FilePath/Park%20G%C3%BCell%20Barcelona.jpg">
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="slot">
+              <div class="time">08:00–08:45</div>
+              <div>
+                <p><b>Breakfast</b> + pack day bag (water, sunscreen, light layer)</p>
+                <div class="meta">Pro: kids carry their own small snack pouch. Magic.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">09:30–11:30</div>
+              <div>
+                <p><b>Sagrada Família (timed entry)</b></p>
+                <div class="meta">Hotel → Sagrada: ~15–25 min by metro/taxi. On-site: 1.5–2h.</div>
+                <div class="meta">
+                  Map: <a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Sagrada+Fam%C3%ADlia&output=embed">open</a>
+                </div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">12:15–13:30</div>
+              <div>
+                <p><b>Lunch</b> (veg-friendly) near Eixample / Gràcia</p>
+                <div class="meta">Sagrada → lunch zone: ~10–20 min by metro/taxi.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">14:00–16:15</div>
+              <div>
+                <p><b>Park Güell (timed entry)</b> + viewpoints</p>
+                <div class="meta">Lunch → Park Güell: ~20–30 min by taxi/bus. On-site: ~2h.</div>
+                <div class="meta">
+                  Map: <a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Park+G%C3%BCell&output=embed">open</a>
+                </div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">17:00–19:00</div>
+              <div>
+                <p><b>Passeig de Gràcia walk</b>: Casa Batlló exterior + shopping window stroll</p>
+                <div class="meta">Park Güell → Passeig: ~20–30 min by taxi/metro. Walk between façades: 5–10 min.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">19:30–21:00</div>
+              <div>
+                <p><b>Dinner</b> + early night</p>
+                <div class="meta">Keep it early; tomorrow is football + outlets.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- DAY 3 -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Day 3 — Barcelona: Barça + Outlet Shopping + Beach Sunset</b>
+              <small>Football day + shopping day + beach payoff.</small>
+            </div>
+            <div class="sum-right"><span class="tag">⚽ Must</span><span class="tag">🛍️ Outlet</span><span class="tag">🏖️ Beach</span></div>
+          </summary>
+
+          <div class="two" style="margin-top:12px;">
+            <div class="card">
+              <b>Photo: Camp Nou (Barcelona)</b>
+              <div class="photo" style="margin-top:10px;">
+                <img alt="Camp Nou stadium" src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Camp_Nou_panorama.jpg">
+              </div>
+            </div>
+            <div class="card">
+              <b>Map focus: Barça → La Roca Village → Barceloneta</b>
+              <div class="map" style="margin-top:10px; height:320px;">
+                <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                  src="https://www.google.com/maps?q=Camp+Nou+Barcelona&output=embed"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="slot">
+              <div class="time">09:00–11:30</div>
+              <div>
+                <p><b>FC Barcelona museum / tour (or Barça Immersive Experience)</b></p>
+                <div class="meta">Center → stadium zone: ~20–35 min by metro/taxi.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">11:45–12:30</div>
+              <div>
+                <p><b>Barça Megastore</b> (jerseys, gifts)</p>
+                <div class="meta">Budget warning: kids love merchandise. Wallets cry quietly.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">13:00–14:00</div>
+              <div>
+                <p><b>Lunch</b> (veg-friendly)</p>
+                <div class="meta">Stadium zone → lunch: ~10–15 min.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">14:30–18:00</div>
+              <div>
+                <p><b>Outlet: La Roca Village</b> (designer outlet mall)</p>
+                <div class="meta">Barcelona → La Roca: ~35–50 min by car/shuttle (varies).</div>
+                <div class="meta">Map: <a target="_blank" rel="noopener" href="https://www.google.com/maps?q=La+Roca+Village&output=embed">open</a></div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">18:45–20:30</div>
+              <div>
+                <p><b>Barceloneta beach walk + sunset</b></p>
+                <div class="meta">Return to city: ~40–60 min. Beach stroll: 45–90 min at your pace.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- DAY 4 -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Day 4 — Madrid: High-speed train + Old Madrid</b>
+              <small>Travel day done right: arrive, check-in, walk the classics.</small>
+            </div>
+            <div class="sum-right"><span class="tag">🚄 AVE</span><span class="tag">🏛️ Palace</span></div>
+          </summary>
+
+          <div class="media">
+            <div class="photo">
+              <img alt="Madrid Plaza Mayor" src="https://upload.wikimedia.org/wikipedia/commons/4/44/Plaza_Mayor_de_Madrid_06.jpg">
+            </div>
+            <div class="map">
+              <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=Puerta+del+Sol+Madrid&output=embed"></iframe>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="slot">
+              <div class="time">08:00–09:00</div>
+              <div>
+                <p><b>Check-out + station transfer</b></p>
+                <div class="meta">Hotel → Barcelona Sants: ~15–30 min.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">09:30–12:00</div>
+              <div>
+                <p><b>Train: Barcelona → Madrid</b></p>
+                <div class="meta">Ride ~2h 30m. Add 30–45 min station buffer.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">12:30–14:00</div>
+              <div>
+                <p><b>Check-in + lunch</b> near Gran Vía / Sol</p>
+                <div class="meta">Atocha/Chamartín → hotel: ~15–25 min by taxi/metro.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">14:15–16:30</div>
+              <div>
+                <p><b>Puerta del Sol → Plaza Mayor → Mercado de San Miguel (look/snack)</b></p>
+                <div class="meta">Walking between highlights: 5–12 min.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">17:00–19:00</div>
+              <div>
+                <p><b>Royal Palace exterior + Almudena Cathedral viewpoint</b></p>
+                <div class="meta">Plaza Mayor → Palace: ~15–20 min walk.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">19:30–20:15</div>
+              <div>
+                <p><b>Temple of Debod sunset</b> (best “free wow”)</p>
+                <div class="meta">Palace → Debod: ~10–15 min by taxi/metro.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- DAY 5 -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Day 5 — Madrid: Bernabéu + Parks + Museums + Shopping Streets</b>
+              <small>Football + culture + a controlled shopping window.</small>
+            </div>
+            <div class="sum-right"><span class="tag">⚽ Bernabéu</span><span class="tag">🎨 Prado</span><span class="tag">🌳 Retiro</span></div>
+          </summary>
+
+          <div class="two" style="margin-top:12px;">
+            <div class="card">
+              <b>Photo: Santiago Bernabéu</b>
+              <div class="photo" style="margin-top:10px;">
+                <img alt="Santiago Bernabéu stadium" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Estadio_Santiago_Bernab%C3%A9u_2019.jpg">
+              </div>
+            </div>
+            <div class="card">
+              <b>Photo: Retiro Park</b>
+              <div class="photo" style="margin-top:10px;">
+                <img alt="Retiro Park lake" src="https://upload.wikimedia.org/wikipedia/commons/3/36/Parque_del_Retiro_03.jpg">
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="slot">
+              <div class="time">09:00–11:00</div>
+              <div>
+                <p><b>Santiago Bernabéu Tour (timed entry)</b></p>
+                <div class="meta">Central Madrid → Bernabéu: ~15–25 min by metro/taxi.</div>
+                <div class="meta">Map: <a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Santiago+Bernab%C3%A9u+Stadium&output=embed">open</a></div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">11:30–12:30</div>
+              <div>
+                <p><b>Stroll Paseo de la Castellana</b> + quick snack</p>
+                <div class="meta">Walk: 10–20 min depending on stop points.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">13:00–15:00</div>
+              <div>
+                <p><b>Retiro Park</b>: Crystal Palace area + lake</p>
+                <div class="meta">Bernabéu → Retiro: ~20–30 min by metro/taxi.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">15:15–17:00</div>
+              <div>
+                <p><b>Museum choice:</b> Prado (classics) <i>or</i> Reina Sofía (modern)</p>
+                <div class="meta">Retiro → museums: ~10–15 min walk.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">17:30–19:30</div>
+              <div>
+                <p><b>Gran Vía + Calle Preciados</b> shopping stroll</p>
+                <div class="meta">Museums → Gran Vía: ~15–20 min by taxi/metro.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- DAY 6 -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Day 6 — Granada: Train + Alhambra & Generalife</b>
+              <small>The crown jewel. Keep this day sacred and unrushed.</small>
+            </div>
+            <div class="sum-right"><span class="tag">🏰 Alhambra</span><span class="tag">🌿 Gardens</span></div>
+          </summary>
+
+          <div class="media">
+            <div class="photo">
+              <img alt="Alhambra Granada" src="https://commons.wikimedia.org/wiki/Special:FilePath/Alhambra%20-%20Granada.jpg">
+            </div>
+            <div class="map">
+              <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=Alhambra+Granada&output=embed"></iframe>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="slot">
+              <div class="time">08:00–09:00</div>
+              <div>
+                <p><b>Check-out + station transfer</b></p>
+                <div class="meta">Hotel → Madrid station: ~10–25 min.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">09:30–13:00</div>
+              <div>
+                <p><b>Train: Madrid → Granada</b></p>
+                <div class="meta">Ride ~3h 15m + buffer. Use this time for rest.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">13:15–14:30</div>
+              <div>
+                <p><b>Check-in + lunch</b> (light)</p>
+                <div class="meta">Station → center: ~10–20 min by taxi.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">15:00–18:30</div>
+              <div>
+                <p><b>Alhambra + Generalife (timed entry)</b></p>
+                <div class="meta">Center → Alhambra: ~10–20 min by taxi/bus. On-site: 3–4h.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">19:30–20:30</div>
+              <div>
+                <p><b>Mirador de San Nicolás sunset</b> (Albaicín viewpoint)</p>
+                <div class="meta">Alhambra → viewpoint: ~15–25 min by taxi + short walk.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- DAY 7 -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Day 7 — Seville: Train + Santa Cruz + Plaza de España</b>
+              <small>Seville is the “walking city”. Expect the family to love it.</small>
+            </div>
+            <div class="sum-right"><span class="tag">🚄 Train</span><span class="tag">🏛️ Plaza</span></div>
+          </summary>
+
+          <div class="two" style="margin-top:12px;">
+            <div class="card">
+              <b>Photo: Plaza de España</b>
+              <div class="photo" style="margin-top:10px;">
+                <img alt="Plaza de España Seville" src="https://commons.wikimedia.org/wiki/Special:FilePath/Plaza%20de%20Espa%C3%B1a%2C%20Seville.jpg">
+              </div>
+            </div>
+            <div class="card">
+              <b>Map: Santa Cruz + Plaza de España</b>
+              <div class="map" style="margin-top:10px; height:320px;">
+                <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                  src="https://www.google.com/maps?q=Barrio+Santa+Cruz+Seville&output=embed"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="slot">
+              <div class="time">09:00–12:00</div>
+              <div>
+                <p><b>Train: Granada → Seville</b></p>
+                <div class="meta">Ride ~2h 45m. Keep snacks ready.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">12:30–14:00</div>
+              <div>
+                <p><b>Check-in + lunch</b></p>
+                <div class="meta">Station → historic center: ~10–20 min by taxi.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">14:30–16:30</div>
+              <div>
+                <p><b>Santa Cruz neighborhood wander</b> (shaded lanes + plazas)</p>
+                <div class="meta">Walk between points: 5–10 min.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">17:00–19:30</div>
+              <div>
+                <p><b>Plaza de España + Maria Luisa Park</b></p>
+                <div class="meta">Santa Cruz → Plaza: ~20–25 min walk (or 10 min taxi). On-site: 2h.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">20:00–21:30</div>
+              <div>
+                <p><b>Dinner</b> + early stroll by the river (Triana Bridge area)</p>
+                <div class="meta">Plaza → river: ~15–25 min.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- DAY 8 -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Day 8 — Seville: Real Alcázar + Cathedral & Giralda</b>
+              <small>Major monuments day; queue protection = timed tickets.</small>
+            </div>
+            <div class="sum-right"><span class="tag">👑 Alcázar</span><span class="tag">⛪ Cathedral</span></div>
+          </summary>
+
+          <div class="two" style="margin-top:12px;">
+            <div class="card">
+              <b>Photo: Real Alcázar (representative)</b>
+              <div class="photo" style="margin-top:10px;">
+                <img alt="Real Alcázar Seville" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Sevilla_Real_Alcazar.jpg">
+              </div>
+            </div>
+            <div class="card">
+              <b>Photo: Seville Cathedral & Giralda</b>
+              <div class="photo" style="margin-top:10px;">
+                <img alt="Seville Cathedral and Giralda" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Catedral_de_Sevilla_y_la_Giralda.jpg">
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="slot">
+              <div class="time">09:30–12:00</div>
+              <div>
+                <p><b>Real Alcázar (timed entry)</b> + gardens</p>
+                <div class="meta">Hotel → Alcázar: 5–20 min walk depending on base.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">12:15–13:30</div>
+              <div>
+                <p><b>Lunch</b> nearby (veg)</p>
+                <div class="meta">Short walk: ~5–12 min.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">14:00–16:30</div>
+              <div>
+                <p><b>Seville Cathedral + Giralda</b> (ramp climb)</p>
+                <div class="meta">Alcázar → Cathedral: ~5–8 min walk. On-site: 2–2.5h.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">17:00–19:00</div>
+              <div>
+                <p><b>Murillo Gardens</b> + relaxed shopping streets</p>
+                <div class="meta">Cathedral → gardens: ~10–15 min walk.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- DAY 9 -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Day 9 — Seville: Markets + Las Setas + Shopping + Optional Flamenco</b>
+              <small>Flexible day: shopping, souvenirs, and a short show if everyone’s still alive.</small>
+            </div>
+            <div class="sum-right"><span class="tag">🛍️ Shopping</span><span class="tag">🍉 Market</span><span class="tag">💃 Optional</span></div>
+          </summary>
+
+          <div class="media">
+            <div class="photo">
+              <img alt="Metropol Parasol (Las Setas) Seville" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Metropol_Parasol_Sevilla.jpg">
+            </div>
+            <div class="map">
+              <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=Metropol+Parasol+Seville&output=embed"></iframe>
+            </div>
+          </div>
+
+          <div class="timeline">
+            <div class="slot">
+              <div class="time">09:30–11:30</div>
+              <div>
+                <p><b>Triana Market</b> + riverfront walk</p>
+                <div class="meta">Center → Triana: ~15–25 min walk. Snack stops: continuous.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">12:00–13:30</div>
+              <div>
+                <p><b>Lunch</b> (market-style or restaurant)</p>
+                <div class="meta">Walk: 5–15 min.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">14:00–16:00</div>
+              <div>
+                <p><b>Shopping streets:</b> Sierpes + Tetuán + small boutiques</p>
+                <div class="meta">All walkable. Add ice cream breaks to maintain morale.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">16:30–18:00</div>
+              <div>
+                <p><b>Las Setas viewpoint</b> (Metropol Parasol)</p>
+                <div class="meta">Shopping streets → Las Setas: ~5–10 min walk.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">19:30–21:00</div>
+              <div>
+                <p><b>Optional flamenco show</b> (choose a short, early show)</p>
+                <div class="meta">If kids are done for the day, skip it. No guilt.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- DAY 10 -->
+        <details>
+          <summary>
+            <div class="sum-left">
+              <b>Day 10 — Departure</b>
+              <small>Keep it light: breakfast, last souvenirs, transfer.</small>
+            </div>
+            <div class="sum-right"><span class="tag">✈️</span><span class="tag">Easy</span></div>
+          </summary>
+
+          <div class="timeline">
+            <div class="slot">
+              <div class="time">08:30–10:00</div>
+              <div>
+                <p><b>Breakfast + final stroll</b> (souvenirs/snacks)</p>
+                <div class="meta">Keep bags ready. Avoid “one last museum”. That’s how flights get missed.</div>
+              </div>
+            </div>
+            <div class="slot">
+              <div class="time">10:00–12:00</div>
+              <div>
+                <p><b>Transfer to airport</b> (or AVE to Madrid if flying out there)</p>
+                <div class="meta">Seville center → airport: ~20–35 min. Add buffer.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- TIPS -->
+    <section id="tips" class="panel" style="margin-top:16px;">
+      <div class="panel-inner">
+        <div class="section-title">
+          <h2>Shopping & Outlet Notes</h2>
+          <p>Where to shop without losing half your holiday to retail.</p>
+        </div>
+
+        <div class="two">
+          <div class="card">
+            <b>Barcelona</b>
+            <div class="muted">Passeig de Gràcia (high-street/luxury) + La Roca Village (designer outlet).</div>
+            <div style="margin-top:8px;">
+              <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Passeig+de+Gr%C3%A0cia+Barcelona&output=embed">Passeig de Gràcia map</a></span>
+              <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=La+Roca+Village&output=embed">La Roca Village map</a></span>
+            </div>
+          </div>
+          <div class="card">
+            <b>Madrid</b>
+            <div class="muted">Gran Vía + Preciados (mainstream) + Salamanca (premium). For outlets: Las Rozas Village (optional).</div>
+            <div style="margin-top:8px;">
+              <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Gran+V%C3%ADa+Madrid&output=embed">Gran Vía map</a></span>
+              <span class="tag"><a target="_blank" rel="noopener" href="https://www.google.com/maps?q=Las+Rozas+Village&output=embed">Las Rozas Village map</a></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          Want more beach? Add a day trip from Seville to Cádiz (fast train) or from Barcelona to Sitges (short train).
+          But with 10 days and 4 cities, beach is best as a <b>sunset walk</b>, not a full additional destination.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // ---------- Helpers ----------
+    const $ = (sel, el=document) => el.querySelector(sel);
+    const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+
+    function fmt(valueEUR){
+      const currency = $('#currency').value;
+      const fx = Number($('#fx').value || 0);
+      if (currency === 'EUR'){
+        return new Intl.NumberFormat('en-IE', { style:'currency', currency:'EUR', maximumFractionDigits:0 }).format(valueEUR);
+      }
+      const inr = valueEUR * (fx || 90);
+      return '₹' + new Intl.NumberFormat('en-IN', { maximumFractionDigits:0 }).format(inr);
+    }
+
+    function sumChecked(selector){
+      return $$(selector).filter(x => x.checked).reduce((a,x) => a + Number(x.dataset.cost || 0), 0);
+    }
+
+    function updateBudget(){
+      const nights = Number($('#nights').value || 0);
+      const hotelPerNight = Number($('#hotelPerNight').value || 0);
+      const mealsPerDay = Number($('#mealsPerDay').value || 0);
+      const localTransportPerDay = Number($('#localTransportPerDay').value || 0);
+      const days = 10;
+
+      const hotelTotal = nights * hotelPerNight;
+      const dailyTotal = days * (mealsPerDay + localTransportPerDay);
+      const trainsTotal = sumChecked('input.train');
+      const activitiesTotal = sumChecked('input.ticket');
+      const shopping = Number($('#shoppingBudget').value || 0);
+      const buffer = Number($('#miscBuffer').value || 0);
+
+      const grand = hotelTotal + dailyTotal + trainsTotal + activitiesTotal + shopping + buffer;
+
+      $('#tHotel').textContent = fmt(hotelTotal);
+      $('#tDaily').textContent = fmt(dailyTotal);
+      $('#tMoves').textContent = fmt(trainsTotal);
+      $('#tActivities').textContent = fmt(activitiesTotal);
+      $('#tShopping').textContent = fmt(shopping);
+      $('#tBuffer').textContent = fmt(buffer);
+      $('#tGrand').textContent = fmt(grand);
+
+      const lines = [];
+      lines.push(`Hotels: ${fmt(hotelTotal)} (${nights} nights × ${fmt(hotelPerNight)} per night)`);
+      lines.push(`Meals+Local transport: ${fmt(dailyTotal)} (10 days × ${fmt(mealsPerDay + localTransportPerDay)} per day)`);
+      lines.push(`Intercity trains: ${fmt(trainsTotal)}`);
+      lines.push(`Attractions/tours: ${fmt(activitiesTotal)}`);
+      lines.push(`Shopping: ${fmt(shopping)}`);
+      lines.push(`Buffer: ${fmt(buffer)}`);
+
+      $('#budgetBreakdown').innerHTML = '<b>Budget breakdown:</b><br>' + lines.map(x => '• ' + x).join('<br>');
+    }
+
+    function resetBudget(){
+      $('#currency').value = 'EUR';
+      $('#fx').value = 90;
+      $('#nights').value = 9;
+      $('#hotelPerNight').value = 180;
+      $('#mealsPerDay').value = 100;
+      $('#localTransportPerDay').value = 20;
+      $('#shoppingBudget').value = 350;
+      $('#miscBuffer').value = 250;
+
+      $$('input.ticket').forEach(cb => cb.checked = (cb.dataset.name.includes('Sagrada') || cb.dataset.name.includes('Park') || cb.dataset.name.includes('Barça') || cb.dataset.name.includes('Bernabéu') || cb.dataset.name.includes('Alhambra') || cb.dataset.name.includes('Alcázar')));
+      $$('input.ticket').forEach(cb => {
+        if (cb.dataset.name.includes('Casa Batlló') || cb.dataset.name.includes('Flamenco')) cb.checked = false;
+      });
+
+      $$('input.train').forEach(cb => cb.checked = !cb.dataset.name.includes('optional'));
+      updateBudget();
+    }
+
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        alert('Copied to clipboard ✅');
+      }catch(e){
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        alert('Copied to clipboard ✅');
+      }
+    }
+
+    function budgetSummaryText(){
+      const hotel = $('#tHotel').textContent;
+      const daily = $('#tDaily').textContent;
+      const trains = $('#tMoves').textContent;
+      const acts = $('#tActivities').textContent;
+      const shop = $('#tShopping').textContent;
+      const buff = $('#tBuffer').textContent;
+      const grand = $('#tGrand').textContent;
+
+      const tickets = $$('input.ticket').filter(x=>x.checked).map(x=>`- ${x.dataset.name}: €${x.dataset.cost}`).join('\n') || '(none)';
+      const trainsSel = $$('input.train').filter(x=>x.checked).map(x=>`- ${x.dataset.name}: €${x.dataset.cost}`).join('\n') || '(none)';
+
+      return [
+        'Spain Trip Budget Summary (Interactive Page)',
+        '------------------------------------------',
+        `Hotels: ${hotel}`,
+        `Meals+Local transport: ${daily}`,
+        `Intercity trains: ${trains}`,
+        `Attractions/tours: ${acts}`,
+        `Shopping: ${shop}`,
+        `Buffer: ${buff}`,
+        '',
+        `GRAND TOTAL: ${grand}`,
+        '',
+        'Selected trains:',
+        trainsSel,
+        '',
+        'Selected attractions:',
+        tickets
+      ].join('\n');
+    }
+
+    // ---------- Packing generator ----------
+    function generatePacking(){
+      const cards = $$('[data-city]');
+      const highs = cards.map(c => Number($('[data-high]', c)?.dataset.high || 0));
+      const lows = cards.map(c => Number($('[data-low]', c)?.dataset.low || 0));
+      const anyRain = cards.some(c => $('[data-rain]', c)?.dataset.rain === 'light');
+      const maxHigh = Math.max(...highs);
+      const minLow = Math.min(...lows);
+
+      const needsLightJacket = minLow <= 9;
+      const needsWarmLayer = minLow <= 7;
+      const needsSun = maxHigh >= 24;
+
+      const items = [];
+      items.push({t:'Walking shoes (2 pairs if possible)', d:'Cobblestones + long days. Rotate shoes to avoid blisters.'});
+      items.push({t:'Light layers (t-shirts + long-sleeve)', d:`Days up to ~${maxHigh}°C; evenings can drop to ~${minLow}°C.`});
+      if (needsLightJacket) items.push({t:'Light jacket / windbreaker', d:'For Madrid/Granada evenings and Barcelona breeze.'});
+      if (needsWarmLayer) items.push({t:'Thin sweater / fleece', d:'Granada can feel cold at night due to elevation.'});
+      if (needsSun) items.push({t:'Sun hat + sunglasses', d:'Seville afternoons can feel hot and bright.'});
+      if (needsSun) items.push({t:'Sunscreen (SPF 30+)', d:'Outdoor sightseeing + parks.'});
+      if (anyRain) items.push({t:'Compact umbrella or packable rain jacket', d:'Barcelona/Madrid can have light showers.'});
+      items.push({t:'Daypack (one per adult)', d:'Water, snacks, power bank, light layer.'});
+      items.push({t:'Reusable water bottles', d:'Refill often; helps in Seville.'});
+      items.push({t:'Power bank + charging cables', d:'Maps + photos all day.'});
+      items.push({t:'Tissues + wet wipes', d:'Public restrooms and snack cleanup.'});
+      items.push({t:'Blister plasters', d:'Walking-heavy itinerary: prevention beats regret.'});
+      items.push({t:'Basic meds (kids + adults)', d:'Motion, fever, allergies; carry prescriptions if needed.'});
+      items.push({t:'Travel adaptor (Type C/F, 230V)', d:'Spain standard plugs.'});
+      items.push({t:'Passport copies (digital + paper)', d:'Helpful for trains/tickets.'});
+      items.push({t:'Train entertainment for kids', d:'Cards, small game, downloaded shows.'});
+      items.push({t:'Snacks for “emergency diplomacy”', d:'You know exactly what this means.'});
+
+      const wrap = $('#packingList');
+      wrap.innerHTML = '';
+      items.forEach((it, idx) => {
+        const div = document.createElement('div');
+        div.className = 'checkitem';
+        div.innerHTML = `
+          <label style="margin:0; display:flex; align-items:flex-start; gap:10px; cursor:pointer;">
+            <input type="checkbox" class="packcb" data-i="${idx}">
+            <div>
+              <b>${it.t}</b>
+              <div class="mini">${it.d}</div>
+            </div>
+          </label>
+        `;
+        wrap.appendChild(div);
+      });
+    }
+
+    function packingText(){
+      const rows = $$('.checkitem b').map(b => '• ' + b.textContent);
+      return ['Spain Trip Packing Checklist', '--------------------------', ...rows].join('\n');
+    }
+
+    function setPackingChecks(state){
+      $$('.packcb').forEach(cb => cb.checked = state);
+    }
+
+    // ---------- Print / PDF ----------
+    function doPrint(){
+      document.body.classList.add('print-mode');
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => document.body.classList.remove('print-mode'), 300);
+      }, 120);
+    }
+
+    // ---------- Wire ----------
+    function wire(){
+      const budgetInputs = ['currency','fx','nights','hotelPerNight','mealsPerDay','localTransportPerDay','shoppingBudget','miscBuffer'];
+      budgetInputs.forEach(id => $('#'+id).addEventListener('input', updateBudget));
+      $$('input.ticket, input.train').forEach(cb => cb.addEventListener('change', updateBudget));
+
+      $('#btnResetBudget').addEventListener('click', () => resetBudget());
+      $('#btnCopyBudget').addEventListener('click', () => copyText(budgetSummaryText()));
+
+      $('#btnGeneratePacking').addEventListener('click', () => generatePacking());
+      $('#btnCheckAll').addEventListener('click', () => setPackingChecks(true));
+      $('#btnUncheckAll').addEventListener('click', () => setPackingChecks(false));
+      $('#btnCopyPacking').addEventListener('click', () => {
+        if (!$('.checkitem')) generatePacking();
+        copyText(packingText());
+      });
+
+      $('#btnPrint').addEventListener('click', doPrint);
+
+      // UX: close other itinerary days when opening one
+      const dayDetails = $$('#itinerary details');
+      dayDetails.forEach(d => d.addEventListener('toggle', () => {
+        if (d.open) {
+          dayDetails.forEach(other => { if (other !== d) other.open = false; });
+          d.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      }));
+    }
+
+    wire();
+    resetBudget();
+  </script>
+</body>
+</html>
